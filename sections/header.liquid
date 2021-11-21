@@ -1,4 +1,4 @@
-<div class="relative bg-white">
+<div class="relative bg-white" x-data="{ mobileMenuOpen: false }">
 	<div class="mx-auto px-4 sm:px-6">
 		<div class="flex justify-center items-center py-6 md:justify-start md:space-x-10">
 			<!-- STORE NAME / STORE LOGO -->
@@ -6,6 +6,13 @@
 				<h1 class="text-xl font-bold truncate">{{ shop.name }}</h1>
 			</div>
 			<!-- NAVIGATION MENU -->
+
+			<div class="-mr-2 -my-2 ml-3 md:hidden">
+				<button x-on:click="mobileMenuOpen = true" type="button"
+					class="bg-white p-2 inline-flex items-center justify-center focus:outline-none">
+					{% render 'icon-hamburger' %}
+				</button>
+			</div>
 			<nav class="hidden md:flex space-x-10">
 
 				{% comment%}
@@ -84,6 +91,57 @@
 					customer_login_link | replace: '
 					<a' , '<a class="text-base text-gray-500 hover:text-gray-900"' }} {{ 'Register' | customer_register_link }} {%
 					endif %} {% endif %} </div>
+
+					<!-- Mobile Menu Container -->
+					<div x-show="mobileMenuOpen"
+						class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden">
+						<div class="shadow-lg rounded-lg ring-1 ring-black ring-opacity-5 bg-white w-full">
+							<div class="p-5 divide-y-2 divide-gray-50">
+								<!-- Mobile Menu Header Title -->
+								<div class="flex items-center justify-between pb-3">
+									<div>
+										<h1 class="text-lg text-gray-500">
+											{{ section.settings.mobile_menu_title }}
+										</h1>
+									</div>
+
+									<div class="-mr-2">
+										<button x-on:click="mobileMenuOpen = false" type="button"
+											class="bg-white rounded-md p-2 text-gray-500">
+											{% render 'icon-close' %}
+										</button>
+									</div>
+								</div>
+								<!-- Navigation links for mobile menu -->
+								<div class="pt-3">
+									<nav class="grid gap-y-7">
+										{% for link in linklists[section.settings.menu].links %}
+										{% if link.links != blank %}
+										{% assign mobile_link_handle=link.handle | replace: '-' , '_' %}
+										<div x-data="{ {{ mobile_link_handle }}: false}" class="relative">
+											<button x-on:click="{{ mobile_link_handle }} = ! {{ mobile_link_handle }}"
+												class="text-base text-gray-500 hover:text-gray-900 flex items-center justify-between w-full">
+												<div class="">{{ link.title }}</div>
+												{% render 'icon-dropdown' %}
+											</button>
+											<div x-show="{{ mobile_link_handle }}" class="grid">
+												{% for childlink in link.links %}
+												<a href="{{ childlink.url }}"
+													class="-m-3 p-3 mt-2 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+													<span class="ml-3">{{ childlink.title }}</span>
+												</a>
+												{% endfor %}
+											</div>
+										</div>
+										{% else %}
+										<a href="{{ link.url }}">{{ link.title }}</a>
+										{% endif %}
+										{% endfor %}
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
 			</div>
 		</div>
 	</div>
@@ -93,6 +151,11 @@
 	{
 	"name": "Header",
 	"settings": [
+	{
+	"type": "text",
+	"id": "mobile_menu_title",
+	"label": "Mobile Menu Title"
+	},
 	{
 	"type": "link_list",
 	"id": "menu",
