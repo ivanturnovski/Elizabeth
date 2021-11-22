@@ -1,11 +1,16 @@
 {
-	"name": "Template 404",
-	"layout": "custom_theme",
-	"wrapper": "section#template_404",
-	"sections": {
-		"template": {
-			"type": "template-404"
-		}
-	},
-	"order": ["template"]
+  "layout": "custom_theme",
+  "wrapper": "section#template_404",
+  "sections": {
+    "template": {
+      "type": "template-404",
+      "settings": {
+        "title": "404!!!!",
+        "subtext_title": "The page is not found!!!!!!"
+      }
+    }
+  },
+  "order": [
+    "template"
+  ]
 }
