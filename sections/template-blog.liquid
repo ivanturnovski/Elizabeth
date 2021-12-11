@@ -6,13 +6,13 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {% for article in blog.articles %}
                     <div class="w-full py-6 px-3">
-                        <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+                        <div class="flex flex-col bg-white shadow-xl rounded-lg overflow-hidden h-full">
                             {% if article.image != blank %}
                                 <img class="w-full h-80 object-cover" src="{{ article.image | img_url: 'medium'}}" alt="{{ article.image.alt }}">
                             {% else %}
                                 {{ 'image' | placeholder_svg_tag: 'w-full h-80 object-cover bg-gray-100' }}
                             {% endif %}
-                            <div class="p-3">
+                            <div class="flex flex-col p-3 h-full">
                                 <h1 class="text-xl font-medium my-4">
                                     {{ article.title }}
                                 </h1>
@@ -22,7 +22,7 @@
                                     <p>{{ article.content | strip_html | truncatewords: 10, '...'}}</p>
                                 {% endif %}
 
-                                <a href="{{ article.url }}" class="font-medium text-blue-600 hover:blue-800 my-4 block">{{ section.settings.blog_read_more }}
+                                <a href="{{ article.url }}" class="font-medium text-blue-600 hover:blue-800 my-4 block mt-auto">{{ section.settings.blog_read_more }}
                                 </a>
                             </div>
 
