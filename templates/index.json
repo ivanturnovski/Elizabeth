@@ -3,6 +3,7 @@
 		"featured-collection": {
 			"type": "featured-collection",
 			"settings": {
+				"title": "Featured Collection",
 				"featured_collection": "featured",
 				"limit_number": 4
 			}

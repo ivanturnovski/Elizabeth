@@ -1,18 +1,18 @@
 <div class="w-full py-6 py-3">
-	<div class="border bg-white shadow-lg rounded-lg overflow-hidden">
-		<a href="{{ product.url }}">
-			{% if product.featured_image %}
-				<div class="overflow-hidden">
-					<img class="w-full h-full object-cover transition duration-1000 ease-in-out hover:scale-105 transform" src="{{ product.featured_image | img_url: '350x' }}" alt="{{ product.featured_image.alt }}">
-				</div>
-			{% else %}
-				{{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-gray-500' }}
-			{% endif %}
-		</a>
-		<div class="flex flex-col p-4">
-			<span class="text-sm">{{ product.vendor }}</span>
-			<a href="{{ product.url }}" class="text-gray-700 uppercase font-medium">{{ product.title }}</a>
-			<p class="text-gray-500">{{ product.price | money }}</p>
-		</div>
-	</div>
+    <div class="border bg-white shadow-lg rounded-lg overflow-hidden">
+        <a href="{{ product.url }}">
+            <div class="overflow-hidden h-56">
+                {% if product.featured_image %}
+                    <img class="w-full h-full object-contain transition duration-1000 ease-in-out hover:scale-105 transform" src="{{ product.featured_image | img_url: '350x' }}" alt="{{ product.featured_image.alt }}">
+                {% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'object-contain bg-gray-500' }}
+                {% endif %}
+            </div>
+        </a>
+        <div class="flex flex-col p-4">
+            <span class="text-sm">{{ product.vendor }}</span>
+            <a href="{{ product.url }}" class="text-gray-700 uppercase font-medium">{{ product.title }}</a>
+            <p class="text-gray-500">{{ product.price | money }}</p>
+        </div>
+    </div>
 </div>
