@@ -7,7 +7,13 @@
 				"featured_collection": "featured",
 				"limit_number": 4
 			}
+		},
+		"contact-form": {
+			"type": "contact-form",
+			"settings": {
+				"title": "Connect with us NOW!"
+			}
 		}
 	},
-	"order": ["featured-collection"]
+	"order": ["featured-collection", "contact-form"]
 }
