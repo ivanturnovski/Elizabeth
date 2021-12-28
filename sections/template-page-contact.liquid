@@ -1,0 +1,33 @@
+<h1>{{ section.settings.title  }}</h1>
+{% form 'contact' %}
+    {% if form.posted_successfully? %}
+        Thank you for your contact
+    {% endif %}
+    {{ form.errors | default_errors }}
+    <label for="ContactFormName">name</label>
+    <input id="ContactFormName" name="contact[name]" type="text">
+    <label for="ContactFormEmail">email</label>
+    <input id="ContactFormEmail" name="contact[email]" type="email">
+    <label for="ContactFormPhone">phone</label>
+    <input id="ContactFormPhone" name="contact[phone]" type="tel">
+    <label for="ContactFormMessage">message</label>
+    <textarea id="ContactFormMessage" name="contact[body]" rows="10"></textarea>
+    <input type="submit" value="send">
+{% endform %}
+
+
+{% schema %}
+
+{
+    "name": "Page Contact",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Enter Heading",
+            "default": "Contact"
+        }
+    ]
+}
+
+{% endschema %}

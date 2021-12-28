@@ -9,9 +9,7 @@
                             <a href="{{ collection.url }}">
                                 <div class="h-80 overflow-hidden">
                                     {% if collection.featured_image != blank %}
-                                        {% assign collection_image = collection.featured_image %}
-                                    {% else %}
-                                        {% assign collection_image = 'test' %}
+                                        {% assign collection_image = collection.featured_image %}                                   
                                     {% endif %}
                                     <img class="w-full h-full object-contain transition duration-1000 ease-in-out transform hover:scale-105" src="{{ collection_image | img_url: 'medium' }}" alt="{{ collection.title }}">
                                 </div>
