@@ -1,7 +1,7 @@
 {
 	"sections": {
 		"template": {
-			"type": "template-page-contact"
+			"type": "template-page"
 		},
 		"contact-form": {
 			"type": "contact-form",
