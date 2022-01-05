@@ -34,8 +34,8 @@
                                 <td>
                                     <input type="number" name="updates[]" min="1" id="updates_{{ forloop.index }}" value="{{ item.quantity }}" class="w-20 border p-2">
                                 </td>
-                                <td class="py-4 px-2">
-                                    {{ item.line_price | money}}
+                                <td class="py-4 px-2">                                
+                                  {{ item.line_price | money}}
                                 </td>
                             </tr>
                         {% endfor %}
