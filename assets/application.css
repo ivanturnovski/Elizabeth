@@ -803,6 +803,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 50%;
 }
 
+.w-max {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
 .max-w-6xl {
   max-width: 72rem;
 }
