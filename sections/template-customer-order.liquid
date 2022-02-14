@@ -43,7 +43,7 @@
 							</tbody>
 						</table>
 						<div class="text-gray-500 mb-4">
-							{{ line_item.product.description | truncatewords: 15, '...' }}
+							{{ line_item.product.description | truncatewords: 15, '...' | strip_html}}
 						</div>
 					</div>
 					<div class="">
@@ -62,9 +62,55 @@
 					<a href="{{ line_item.fulfillment.tracking_url }}" target="_blank" class="flex w-max text-sm text-white font-medium bg-gray-700 hover:bg-gray-900 px-4 py-1 rounded">Track Order</a>
 					{% else %}
 					<p class="text-gray-500">This item is not yet fullfiled</p>
+					{% endif %}					
+				</div>				
+			</div>
+		{% endfor %}		
+	</div>
+	<div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-12 border border-gray-200 rounded-sm p-4 md:p-12 my-6 bg-gray-50">
+		<div class="">
+			<h1 class="font-medium mb-4">Billing address</h1>
+			{{ order.billing_address | format_address }}
+		</div>
+		<div class="">
+			<h1 class="font-medium mb-4">Payment Information</h1>
+			{% for transaction in order.transactions %}
+				<div class="mb-4">
+					{% assign credit_card_company = transaction.payment_details.credit_card_company %}
+					{% assign credit_card_last_four_digits = transaction.payment_details.credit_card_number %}
+					{% if credit_card_company %}
+						<p>{{ credit_card_company }}</p>
+						<p>{{ credit_card_last_four_digits }}</p>
+						{% case transaction.status_label %}
+							{% when 'Failure' %}
+								{% assign background = 'red' %}
+							{% else %}
+								{% assign background = 'green' %}
+						{% endcase %}
+						<span class="bg-{{ background }}-700 rounded-full text-sm px-4 py-1 text-white">{{ transaction.status_label }}</span>
+					{% else %}
+					<p class="text-sm mb-4">This order was manually placed by: {{ shop.name }}</p>
 					{% endif %}
 				</div>
-			</div>
-		{% endfor %}
+			{% endfor %}
+		</div>
+		<div>
+			<table class="table-auto w-full mb-4">
+				<tbody>
+					<tr>
+						<td class="border border-gray-200 px-4 py-2">Subtotal</td>
+						<td class="border border-gray-200 px-4 py-2">{{ order.subtotal_price | money }}</td>
+					</tr>
+					<tr>
+						<td class="border border-gray-200 px-4 py-2">Shipping</td>
+						<td class="border border-gray-200 px-4 py-2">{{ order.shipping_price | money }}</td>
+					</tr>
+					<tr>
+						<td class="border border-gray-200 px-4 py-2">Total Price</td>
+						<td class="border border-gray-200 px-4 py-2">{{ order.total_price | money}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>	
 </div>
