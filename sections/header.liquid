@@ -3,7 +3,7 @@
         <div class="flex justify-center items-center py-6 md:justify-start md:space-x-10">
             <!-- STORE NAME / STORE LOGO -->
             <div class="flex justify-start lg:flex-1 truncate">
-                <h1 class="text-xl font-bold truncate">{{ shop.name }}</h1>
+               <a href="/"><h1 class="text-xl font-bold truncate">{{ shop.name }}</h1></a>
             </div>
             <!-- NAVIGATION MENU -->
 
@@ -43,29 +43,65 @@
 
                     {% if link.links != blank %}
                         {% assign link_handle = link.handle | replace: '-', '_' %}
-                        <div class="relative" x-data="{ {{ link_handle }}: false }">
-                            <button x-on:click="{{ link_handle }} = ! {{ link_handle }}" class="inline-flex items-center">
+                        <div class="relative"  x-data="{ {{ link_handle }}: false }">
+                            <a  href="{{ link.url }}"                             
+                                x-on:mouseenter="{{ link_handle }} = true"
+                                x-on:mouseleave="{{ link_handle }} = false"                                                            
+                                class="inline-flex items-center font-medium"
+                            >
                                 {{ link.title }}
                                 {% render 'icon-dropdown' %}
-                            </button>
-                            <div x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-3" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-out duration-300" x-transition:leave-start="opacity-0 translate-y-0" x-transition:leave-end="opacity-0 translate-y-3" x-show="{{ link_handle }}" @click.away="{{ link_handle }} = false" class="absolute z-10 -ml-5 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
-                                <div class="shadow-lg border ring-black ring-opacity-5 overflow-hidden rounded-lg">
-                                    <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                                        {% for childlink in link.links %}
-                                            <a href="{{ childlink.url }}" class="-m-3 p-3 flex items-start rounded-lg hover:text-gray-100">
+                            </a>
+                            <div 
+                            x-on:mouseenter="{{ link_handle }} = true" 
+                            x-on:mouseleave="{{ link_handle }} = false"                           
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-0"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-out duration-200"
+                            x-transition:leave-start="opacity-0 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-0"
+                            x-show="{{ link_handle }}" 
+                            class="absolute z-10 -ml-5 transform px-2 w-32 sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2 shadow-lg ring-black ring-opacity-10"
+                            >
+                                
+                                    {% for childlink in link.links %}
+                                    {% assign childlink_handle = childlink.handle | replace: '-', '_' %}
+                                    <div 
+                                    x-data="{ {{ childlink_handle }}: false }" 
+                                    class="relative grid bg-white">                                      
+                                            <a 
+                                            x-on:mouseenter="{{ childlink_handle }} = true"
+                                            x-on:mouseleave="{{ childlink_handle }} = false" 
+                                            href="{{ childlink.url }}" class="p-3 flex items-center justify-between hover:bg-slate-200">
                                                 <div class="ml-4">
-                                                    <div class="text-gray-900 text-base font-medium {% if childlink.active %}text-red-500{% endif %}">
-                                                        {{ childlink.title }}
+                                                    <div class="text-gray-900 text-base font-medium">
+                                                        <span class="{% if childlink.active %}text-red-500{% endif %}">{{ childlink.title }}</span>
                                                     </div>
                                                 </div>
+                                                {% if childlink.links != blank %}
+                                                   {% render 'icon-right' %}
+                                                {% endif %}
                                             </a>
-                                        {% endfor %}
+                                            <div 
+                                            x-on:mouseenter="{{ childlink_handle }} = true"
+                                            x-on:mouseleave="{{ childlink_handle }} = false" 
+                                            x-show="{{ childlink_handle }}"
+                                            class="absolute top-0 left-full z-50 w-48 bg-white shadow-xl ring-black ring-opacity-10">
+                                            <div class="">
+                                                {% for grandchildlink in childlink.links %}   
+                                                <a class="font-medium p-3 flex items-center justify-between hover:bg-slate-200{% if grandchildlink.active %} text-red-500{% endif %}" href="{{ grandchildlink.url }}">{{ grandchildlink.title }}</a>                                         
+                                                {% endfor %}
+                                            </div>
+                                            </div>
+                                       
                                     </div>
-                                </div>
+                                    {% endfor %}
+                                
                             </div>
                         </div>
                     {% else %}
-                        <a href="{{ link.url }}" class="text-base text-gray-500 hover:text-gray-700">{{ link.title }}</a>
+                        <a href="{{ link.url }}" class="text-base text-gray-900 hover:text-gray-700 font-medium">{{ link.title }}</a>
                     {% endif %}
                 {% endfor %}
             </nav>
