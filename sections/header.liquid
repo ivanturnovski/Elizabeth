@@ -109,7 +109,9 @@
             <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
                 <button class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900" type="button" x-on:click="searchBarOpen = true">{% render 'icon-search'
 					%}</button>
-                <a class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900" href="/cart">{% render
+                <a 
+                x-on:click="$dispatch('toggle-cart-drawer')"
+                class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900 cursor-pointer">{% render
 					'icon-shopping-bag' %}</a>
 
                 {% if shop.customer_accounts_enabled %}
