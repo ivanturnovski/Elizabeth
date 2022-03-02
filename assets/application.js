@@ -26,3 +26,38 @@ function carousel() {
 	  }
 	}
   }
+
+  function showDrawer() {
+	  return  console.log('added to cart!'); 
+  }
+
+  function myComponentAddToCart() {
+	return {		
+		AddToCart(refs) {  			           
+			console.log(refs.variant_id.value);
+			let formData = {
+				'items': [
+				{
+					'id': refs.variant_id.value,
+					'quantity': 1
+				}]
+			};
+			fetch('/cart/add.js', {
+				method: 'POST',
+				headers: {
+				  'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			  })
+			  .then(response => {
+				return response.json();
+			  })
+			  .then(response => {
+				showDrawer();
+			  })
+			  .catch((error) => {
+				console.error('Error:', error);
+			  });
+		}
+	}
+}
