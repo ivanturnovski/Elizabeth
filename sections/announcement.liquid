@@ -1,0 +1,51 @@
+<div class="announcement-bar p-3 {{ section.settings.alignment }}">{{ section.settings.announcement_text }}</div>
+
+{% style %}
+	.announcement-bar {
+		color: {{ section.settings.text_color }};
+		background-color: {{ section.settings.bg_color }};
+	}
+{% endstyle %}
+{% schema %}
+
+{
+    "name": "Annoucement Bar",
+    "tag": "section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "announcement_text",
+            "label": "Announcement Text",                        
+            "placeholder": "Announcement Text"
+        }, {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color",
+            "default": "#cecece"
+        }, {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#000"
+        }, {
+            "type": "select",
+            "id": "alignment",
+            "label": "Horizontal alignment",
+            "options": [
+                {
+                    "value": "text-left",
+                    "label": "Left"
+                }, {
+                    "value": "text-center",
+                    "label": "Center"
+                }, {
+                    "value": "text-right",
+                    "label": "Right"
+                }
+            ],
+            "default": "text-left"
+        }
+    ]
+}
+
+{% endschema %}

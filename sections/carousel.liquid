@@ -17,7 +17,7 @@
                     {% for block in section.blocks %}
                         {% assign item = block.settings.carousel_image %}
                         <div class="w-3/5 px-2">
-                            <img loading="lazy" src="{{ item | image_url }}">
+                            {{ item | image_url: width: 1200 | image_tag: widths: '200, 300, 800' }}
                         </div>
                     {% endfor %}
                 </div>
@@ -30,6 +30,7 @@
 
 {
     "name": "Carousel",
+    "tag": "section",
     "blocks": [
         {
             "type": "image",

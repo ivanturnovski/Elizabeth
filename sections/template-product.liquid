@@ -46,9 +46,30 @@
                 <div class="swiper-button-next"></div>
             </div>
         </div>
-        <div class="product--information sticky top-5 p-2">
-            {% form 'product', product, id: 'product-form', novalidate: 'novalidate' %}
-                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <div
+        x-data="{
+            qty: 1,
+            addToCart($refs) {
+
+            console.log($refs.variant_id.value);
+            var formData = new FormData($refs.product_forms);
+
+            console.log('test', formData);
+            fetch('/cart/add.js', {
+                method: 'POST',                
+                body: formData
+              })
+              .then(response => {
+                return response.json();
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+            }
+        }"
+         class="product--information sticky top-5 p-2">
+            {% form 'product', product, id: 'product-form', novalidate: 'novalidate', x-ref:'product_forms' %}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" x-ref="variant_id">
                 {% for block in section.blocks %}
                     {% case block.type %}
                         {% when 'vendor' %}
@@ -103,7 +124,7 @@
                             </div>
                         {% when 'checkout_button' %}
                             <div class="my-3">
-                                <button type="submit" name="add" class="w-full p-5 bg-gray-900 text-white hover:bg-gray-700 rounded-sm my-2" {% if product.selected_or_first_available_variant.available==false %} disabled {% endif %}>
+                                <button @click="addToCart($refs)" type="button" name="add" class="w-full p-5 bg-gray-900 text-white hover:bg-gray-700 rounded-sm my-2" {% if product.selected_or_first_available_variant.available==false %} disabled {% endif %}>
 
                                     {% if product.selected_or_first_available_variant.available == false %}
                                         Sold Out

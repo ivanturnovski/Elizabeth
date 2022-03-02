@@ -1,5 +1,26 @@
 {
   "current": {
+    "sections": {
+      "announcement": {
+        "type": "announcement",
+        "settings": {
+          "announcement_text": "Free Shipping Under $50",
+          "bg_color": "#cecece",
+          "text_color": "#ba3e3e",
+          "alignment": "text-center"
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "mobile_menu_title": "",
+          "menu": "main-menu"
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
   },
   "presets": {
     "Default": {
