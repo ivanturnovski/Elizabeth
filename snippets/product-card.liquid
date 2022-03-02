@@ -9,10 +9,41 @@
                 {% endif %}
             </div>
         </a>
-        <div class="flex flex-col p-4">
+        <div 
+        x-data="{
+            AddToCart($refs) {
+                console.log($refs.variant_id.value);
+                let formData = {
+                    'items': [
+                    {
+                        'id': $refs.variant_id.value,
+                        'quantity': 1
+                    }]
+                };
+                fetch('/cart/add.js', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                  })
+                  .then(response => {
+                    return response.json();
+                  })
+                  .catch((error) => {
+                    console.error('Error:', error);
+                  });
+            }
+
+        }"
+        class="flex flex-col p-4">
             <span class="text-sm">{{ product.vendor }}</span>
             <a href="{{ product.url }}" class="text-gray-700 uppercase font-medium">{{ product.title }}</a>
             <p class="text-gray-500">{{ product.price | money }}</p>
+            <input type="hidden" value="{{ product.selected_or_first_available_variant.id }}" x-ref="variant_id">
+            <button 
+            x-on:click="AddToCart($refs)"
+            type="button" class="bg-gray-900 text-white hover:bg-gray-700 p-2 m-1">Add To Cart </button>
         </div>
     </div>
 </div>
