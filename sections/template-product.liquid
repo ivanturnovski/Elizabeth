@@ -61,6 +61,7 @@
                     return response.json();
                   })
                   .then((response) => {
+                    this.$dispatch('cart-products');
                     this.$dispatch('cart-updated');
                     this.$dispatch('toggle-cart');
                   })

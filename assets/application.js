@@ -50,6 +50,7 @@ function myComponentAddToCart() {
 					return response.json();
 				})
 				.then((response) => {
+					this.$dispatch('cart-products');
 					this.$dispatch('cart-updated');
 					this.$dispatch('toggle-cart');
 				})
@@ -72,6 +73,7 @@ let Elizabeth = {
 			.then((response) => response.json())
 			.then((data) => {
 				console.log('The the cart is updated');
+				window.dispatchEvent(new Event('cart-products'));
 				window.dispatchEvent(new Event('cart-updated'));
 			})
 			.catch((error) => {
@@ -79,10 +81,11 @@ let Elizabeth = {
 			});
 	},
 
-	getCartProducts() {
-		fetch('cart.js')
+	getCartProducts(refs) {
+		fetch('/cart.js')
 			.then((data) => data.json())
-			.then(function (data) {
+			.then((data) => {
+				refs.cart_product_count.innerHTML = `(${data.items.length}) Items`;
 				console.log(data.items.length);
 			});
 	},

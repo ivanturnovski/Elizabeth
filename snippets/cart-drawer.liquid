@@ -12,6 +12,7 @@ x-data="{
 	}
  }"
 x-show="showCartDrawer"
+@cart-products.window="Elizabeth.getCartProducts($refs)"
 @cart-updated.window="updateCart"
 @toggle-cart.window="showCartDrawer = !showCartDrawer"
 x-cloak
@@ -70,7 +71,7 @@ class="z-50 fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" ro
   
 		  <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
 			<div class="px-4 sm:px-6">
-			  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title"><a href="{{ routes.cart_url }}">Cart<span @cart-products.window="Elizabeth.getCartProducts()" id="cartProducts"></span></a></h2>
+			  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title"><a href="{{ routes.cart_url }}">Cart <span x-ref="cart_product_count">({{ cart.items | size }}) Items</span></a></h2>
 			</div>
 			<div class="relative mt-6 flex-1 px-4 sm:px-6">			
 			  <div class="absolute inset-0 px-4 sm:px-6">
