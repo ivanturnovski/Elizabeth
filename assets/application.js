@@ -89,6 +89,14 @@ let Elizabeth = {
 				console.log(data.items.length);
 			});
 	},
+
+	getHeaderCartProducts(refs) {
+		fetch('/cart.js')
+			.then((data) => data.json())
+			.then((data) => {
+				refs.header_cart_product_count.innerHTML = data.items.length;
+			});
+	},
 };
 
 window.Elizabeth = Elizabeth;

@@ -109,10 +109,13 @@
             <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
                 <button class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900" type="button" x-on:click="searchBarOpen = true">{% render 'icon-search'
 					%}</button>
-                <a 
+                <a
+                @cart-products.window="Elizabeth.getHeaderCartProducts($refs)" 
                 x-on:click="$dispatch('toggle-cart')"
-                class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900 cursor-pointer">{% render
-					'icon-shopping-bag' %}</a>
+                class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900 cursor-pointer relative">{% render
+					'icon-shopping-bag' %}
+                    <span x-ref="header_cart_product_count" class="absolute -top-2 -right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 bg-red-600 rounded-full">{{ cart.items | size }}</span>
+                </a>
 
                 {% if shop.customer_accounts_enabled %}
                     {% if customer %}
