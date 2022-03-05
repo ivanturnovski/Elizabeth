@@ -59,3 +59,33 @@ function myComponentAddToCart() {
 		},
 	};
 }
+
+let Elizabeth = {
+	updateQuantity(line, qty) {
+		fetch('/cart/change.js', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ quantity: qty, line: line }),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log('The the cart is updated');
+				window.dispatchEvent(new Event('cart-updated'));
+			})
+			.catch((error) => {
+				console.log('Error', error);
+			});
+	},
+
+	getCartProducts() {
+		fetch('cart.js')
+			.then((data) => data.json())
+			.then(function (data) {
+				console.log(data.items.length);
+			});
+	},
+};
+
+window.Elizabeth = Elizabeth;

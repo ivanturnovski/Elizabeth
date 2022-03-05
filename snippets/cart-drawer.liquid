@@ -70,33 +70,52 @@ class="z-50 fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" ro
   
 		  <div class="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
 			<div class="px-4 sm:px-6">
-			  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title"><a href="{{ routes.cart_url }}">Cart Drawer</a></h2>
+			  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title"><a href="{{ routes.cart_url }}">Cart<span @cart-products.window="Elizabeth.getCartProducts()" id="cartProducts"></span></a></h2>
 			</div>
 			<div class="relative mt-6 flex-1 px-4 sm:px-6">			
 			  <div class="absolute inset-0 px-4 sm:px-6">
-				<div class="h-full border-2 border-dashed border-gray-200 text-center overflow-y-scroll" aria-hidden="true" x-ref="cart_content">
-					<form action="{{ routes.cart_url }}" method="post">
+				<div class="h-full border-2 border-dashed border-gray-200 text-center overflow-y-auto" aria-hidden="true" x-ref="cart_content">
+					<form action="{{ routes.cart_url }}" method="post" class="flex flex-col h-full">
 						{% for item in cart.items %}
-							<div class="cart-drawer-product p-4">
-								<a href="{{ item.url }}">
+							<div class="cart-drawer-product p-4 relative">
+								<a class="block" href="{{ item.url }}">
 									<img class="mx-auto" src="{{ item.image | image_url: width: 300 }}" alt="{{ item.image.alt }}">
 									<h3>{{ item.title }}</h3>
-									<p>{{ item.original_price | money }}</p>
+									<p>{{ item.original_price | money }}</p>									
 								</a>
-								<div class="cart-drawer-buttons">
-									<button type="button" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+								<div class="cart-drawer-buttons" x-data="{ qty: {{ item.quantity }} }" >
+									<button 
+									@click.debounce="Elizabeth.updateQuantity({{ forloop.index }}, qty=qty-1)"
+									type="button" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
 										-
 									</button>
 									<input class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow w-12 text-center" type="text" name="quantity" value="{{ item.quantity }}">
-									<button type="button" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+									<button 
+									@click.debounce="Elizabeth.updateQuantity({{ forloop.index }}, qty=qty+1)"
+									type="button" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
 										+
 									</button>
 								</div>
+								<button @click="Elizabeth.updateQuantity({{ forloop.index}}, 0)" title="Remove {{ item.product.title }}" type="button" class="absolute top-4 right-14">{% render 'icon-close' %}</button>								
 							</div>
 							{% unless forloop.last %}
 								<hr class="my-3">
 							{% endunless %}
 						{% endfor %}
+
+						{% if cart.item_count < 1   %}
+						<div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+							<p class="font-bold">The cart is empty!</p>
+							<p  x-on:click="$dispatch('toggle-cart')" class="text-sm cursor-pointer">Continue Shopping </p>
+						  </div>
+						{% endif %}
+						<div class="cart-drawer-footer mt-auto">
+							<div class="cart-drawer-totals">
+								<p class="hover:bg-gray-100 text-gray-800 font-semibold m-3">Discount: {{ cart.total_discount | money }}</p>
+								<p class="hover:bg-gray-100 text-gray-800 font-semibold m-3">Total Price: {{ cart.total_price | money }}</p>
+							</div>
+							<button type="submit" name="checkout" class="bg-gray-900 text-white hover:bg-gray-700 p-2 block w-full">Checkout</button>
+						</div>						
 					</form>
 				</div>
 			  </div>
