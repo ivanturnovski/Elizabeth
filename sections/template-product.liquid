@@ -48,24 +48,26 @@
         </div>
         <div
         x-data="{
-            qty: 1,
-            addToCart($refs) {
-
-            console.log($refs.variant_id.value);
-            var formData = new FormData($refs.product_forms);
-
-            console.log('test', formData);
-            fetch('/cart/add.js', {
-                method: 'POST',                
-                body: formData
-              })
-              .then(response => {
-                return response.json();
-              })
-              .catch((error) => {
-                console.error('Error:', error);
-              });
-            }
+            addToCart(refs) {
+                console.log(refs.variant_id.value);
+                var formData = new FormData(refs.product_forms);
+            
+                console.log('test', formData);
+                fetch('/cart/add.js', {
+                    method: 'POST',                
+                    body: formData
+                  })
+                  .then(response => {
+                    return response.json();
+                  })
+                  .then((response) => {
+                    this.$dispatch('cart-updated');
+                    this.$dispatch('toggle-cart');
+                  })
+                  .catch((error) => {
+                    console.error('Error:', error);
+                  });
+                }
         }"
          class="product--information sticky top-5 p-2">
             {% form 'product', product, id: 'product-form', novalidate: 'novalidate', x-ref:'product_forms' %}
