@@ -1,51 +1,56 @@
 {
-	"sections": {
-		"1646083290517546a7": {
-			"type": "carousel",
-			"blocks": {
-				"b23491d0-3e94-446b-9030-22e95a78674c": {
-					"type": "image",
-					"settings": {
-						"title": "Blue Bike",
-						"carousel_image": "shopify://shop_images/KAR_20130428-3052_2048x2048_24341e59-48f7-4a67-a5d1-d8424ba737a1.jpg"
-					}
-				},
-				"da520403-6ac9-4e63-b146-ff403f583026": {
-					"type": "image",
-					"settings": {
-						"title": "Blue Bike",
-						"carousel_image": "shopify://shop_images/KAR_20130707-4329_2048x2048_1f934155-9f2c-4386-8612-42919e2e3828.jpg"
-					}
-				},
-				"03bfda50-7960-4a48-ae00-852ab9beb8fe": {
-					"type": "image",
-					"settings": {
-						"title": "Man With Yellow Bike",
-						"carousel_image": "shopify://shop_images/KAR_20130707-4298_2048x2048_023ca988-345a-4c59-973f-d2976ec2d518.jpg"
-					}
-				}
-			},
-			"block_order": [
-				"b23491d0-3e94-446b-9030-22e95a78674c",
-				"da520403-6ac9-4e63-b146-ff403f583026",
-				"03bfda50-7960-4a48-ae00-852ab9beb8fe"
-			],
-			"settings": {}
-		},
-		"featured-collection": {
-			"type": "featured-collection",
-			"settings": {
-				"title": "Featured Collection",
-				"featured_collection": "featured",
-				"limit_number": 4
-			}
-		},
-		"contact-form": {
-			"type": "contact-form",
-			"settings": {
-				"title": "Connect with us NOW!"
-			}
-		}
-	},
-	"order": ["1646083290517546a7", "featured-collection", "contact-form"]
+  "sections": {
+    "1646083290517546a7": {
+      "type": "carousel",
+      "blocks": {
+        "b23491d0-3e94-446b-9030-22e95a78674c": {
+          "type": "image",
+          "settings": {
+            "title": "Blue Bike",
+            "carousel_image": "shopify:\/\/shop_images\/KAR_20130428-3052_2048x2048_24341e59-48f7-4a67-a5d1-d8424ba737a1.jpg"
+          }
+        },
+        "da520403-6ac9-4e63-b146-ff403f583026": {
+          "type": "image",
+          "settings": {
+            "title": "Yellow",
+            "carousel_image": "shopify:\/\/shop_images\/KAR_20130707-4329_2048x2048_1f934155-9f2c-4386-8612-42919e2e3828.jpg"
+          }
+        },
+        "03bfda50-7960-4a48-ae00-852ab9beb8fe": {
+          "type": "image",
+          "settings": {
+            "title": "Yellow Bike",
+            "carousel_image": "shopify:\/\/shop_images\/KAR_20130707-4298_2048x2048_023ca988-345a-4c59-973f-d2976ec2d518.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "b23491d0-3e94-446b-9030-22e95a78674c",
+        "da520403-6ac9-4e63-b146-ff403f583026",
+        "03bfda50-7960-4a48-ae00-852ab9beb8fe"
+      ],
+      "settings": {
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured Collection",
+        "featured_collection": "featured",
+        "limit_number": 4
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {
+        "title": "Connect with us NOW!"
+      }
+    }
+  },
+  "order": [
+    "1646083290517546a7",
+    "featured-collection",
+    "contact-form"
+  ]
 }
