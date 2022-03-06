@@ -3,7 +3,7 @@
 	{% for item in cart.items %}
 		<div class="cart-drawer-product p-4 relative">
 			<a class="block" href="{{ item.url }}">
-				<img loading="lazy" class="mx-auto" src="{{ item.image | image_url: width: 300 }}" alt="{{ item.image.alt }}">
+				<img loading="lazy" class="mx-auto" src="{{ item.image | image_url: width: 300 }}" alt="{{ item.image.alt }}" width="200" height="200">
 				<h3>{{ item.title }}</h3>
 				<p>{{ item.original_price | money }}</p>									
 			</a>

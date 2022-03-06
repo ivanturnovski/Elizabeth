@@ -6,20 +6,22 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="description" content="{{ page_description | escape }}">
 
-    <link rel="icon" type="image/png" href="{{ 'sfavicon.png' | asset_img_url: '32x32' }}">
+  <link rel="icon" type="image/png" href="{{ 'sfavicon.png' | asset_img_url: '32x32' }}">
 
   <link rel="canonical" href="{{ canonical_url }}">
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   {{ content_for_header }}
   <!-- Header hook for plugins -->
   <script async src="{{ 'application.js' | asset_url }}"></script>
-  <link rel="stylesheet" href="{{ 'application.css' | asset_url }}">
+  <link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="{{ 'application.css' | asset_url }}">
+  <noscript><link rel="stylesheet" href="{{ 'application.css' | asset_url }}"></noscript>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <link rel="stylesheet" href="{{ 'flickity.min.css' | asset_url }}">
+  <!-- <link rel="stylesheet" href="{{ 'flickity.min.css' | asset_url }}"> -->
   <script src="{{ 'flickity.pkgd.min.js' | asset_url }}"></script>
 <style>
   [x-cloak] { display: none!important }
 </style>
+{% render 'flickity-css' %}
 </head>
 <body>
   {% section 'announcement' %}

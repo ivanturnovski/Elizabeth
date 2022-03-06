@@ -36,7 +36,7 @@
                     {% for media in product.media %}
                         <div class="swiper-slide">
                             <div class="h-8- overflow-hidden p-2">
-                                {%render 'product-media', media: media %}
+                                {% render 'product-media', media: media %}
                             </div>
                         </div>
                     {% endfor %}
@@ -101,7 +101,7 @@
                                             <div class="my-2">
                                                 <select class="w-full border py-1 px-3" id="option-{{ section.id }}-{{ forloop.index }}" name="options[{{ option.name | escape }}]">
                                                     {% for value in option.values %}
-                                                        <option value = "{{ value | escape }}" {% if option.selected_value==value %} selected="selected" {% endif %}>
+                                                        <option value = "{{ value | escape }}" {% if option.selected_value == value %} selected="selected" {% endif %}>
                                                             {{ value }}
                                                         </option>
                                                     {% endfor %}
@@ -127,7 +127,7 @@
                             </div>
                         {% when 'checkout_button' %}
                             <div class="my-3">
-                                <button @click="addToCart($refs)" type="button" name="add" class="w-full p-5 bg-gray-900 text-white hover:bg-gray-700 rounded-sm my-2" {% if product.selected_or_first_available_variant.available==false %} disabled {% endif %}>
+                                <button @click="addToCart($refs)" type="button" name="add" class="w-full p-5 bg-gray-900 text-white hover:bg-gray-700 rounded-sm my-2" {% if product.selected_or_first_available_variant.available == false %} disabled {% endif %}>
 
                                     {% if product.selected_or_first_available_variant.available == false %}
                                         Sold Out

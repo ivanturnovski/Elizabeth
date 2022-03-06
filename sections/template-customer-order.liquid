@@ -19,7 +19,7 @@
 				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-12 p-4 md:p-12">
 					<div class="w-full min-h-80 bg-gray-200 rouded-md overflow-hidden border">
 						{% if line_item.image %}
-							<img loading="lazy" class="w-full h-full object-cover object-center" src="{{ line_item.image | img_url: '300x' }}" alt="{{ line_item.image.alt }}">
+							<img loading="lazy" width="300" height="200" class="w-full h-full object-cover object-center" src="{{ line_item.image | img_url: '300x' }}" alt="{{ line_item.image.alt }}">
 							{% else %}
 							{{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-center object-cover' }}
 						{% endif %}
@@ -55,7 +55,7 @@
 				</div>
 				<div class="p-4 md:p-12">
 					<h1 class="text-lg font-medium mb-4">Fullfilment</h1>
-					{% if line_item.successfully_fulfilled_quantity > 0  %}
+					{% if line_item.successfully_fulfilled_quantity > 0 %}
 					<p class="mb-2">We have fullfilled: {{ line_item.successfully_fulfilled_quantity }} items</p>
 					<p class="mb-2">Tracking Company: {{ line_item.fulfillment.tracking_company }}</p>
 					<p class="mb-2">Tracking Number: {{ line_item.fulfillment.tracking_number }}</p>
@@ -107,7 +107,7 @@
 					</tr>
 					<tr>
 						<td class="border border-gray-200 px-4 py-2">Total Price</td>
-						<td class="border border-gray-200 px-4 py-2">{{ order.total_price | money}}</td>
+						<td class="border border-gray-200 px-4 py-2">{{ order.total_price | money }}</td>
 					</tr>
 				</tbody>
 			</table>

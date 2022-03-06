@@ -20,7 +20,7 @@
                                 <td class="py-4 px-2 flex flex-col justify-center">
                                     <a href="{{ item.url }}">
                                         {% if item.image %}
-                                            <img loading="lazy" src="{{ item.image | img_url: 'small' }}" alt="{{ item.title | escape }}" class="w-30 h-20 object-cover border">
+                                            <img loading="lazy" src="{{ item.image | img_url: 'small' }}" alt="{{ item.title | escape }}" class="w-30 h-20 object-cover border" width="116" height="78">
                                         {%else %}
                                             {{ 'product-1' | placeholder_svg_tag: 'w-30 h-20 object-cover border' }}
                                         {% endif %}
@@ -35,7 +35,7 @@
                                     <input type="number" name="updates[]" min="1" id="updates_{{ forloop.index }}" value="{{ item.quantity }}" class="w-20 border p-2">
                                 </td>
                                 <td class="py-4 px-2">                                
-                                  {{ item.line_price | money}}
+                                  {{ item.line_price | money }}
                                 </td>
                             </tr>
                         {% endfor %}

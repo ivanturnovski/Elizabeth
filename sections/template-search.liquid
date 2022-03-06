@@ -10,7 +10,7 @@
             </form>
         </div>
         {% if search.performed %}
-            {% if search.results.size > 0  %}
+            {% if search.results.size > 0 %}
                 <div class="max-w-6xl mx-auto">
 					<div class="text-gray-500 text-center my-10">
 						{{ search.results.size }} results for the search term {{ search.terms | escape }}
