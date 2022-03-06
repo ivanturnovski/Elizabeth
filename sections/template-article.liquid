@@ -28,7 +28,7 @@
                 <div class="flex items-center justify-center">
                     <div itemprop="image" class="max-w-7xl bg-blue-100 rounded-lg mx-2 md:max-auto overflow-hidden my-4">
                         {% if article.image != blank %}
-                            <img class="w-full h-80 md:h-96 object-cover object-center" src="{{ article.image | img_url: 'medium' }}" alt="{{ article.image.alt }}">
+                            <img loading="lazy" class="w-full h-80 md:h-96 object-cover object-center" src="{{ article.image | img_url: 'medium' }}" alt="{{ article.image.alt }}">
                         {% else %}
                             {% assign placeholder_image = 'lifestyle-2' %}
                             {{ placeholder_image | placeholder_svg_tag: 'w-full h-80 md:h-96 object-cover object-center p-5' }}

@@ -80,7 +80,7 @@ class="z-50 fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" ro
 						{% for item in cart.items %}
 							<div class="cart-drawer-product p-4 relative">
 								<a class="block" href="{{ item.url }}">
-									<img class="mx-auto" src="{{ item.image | image_url: width: 300 }}" alt="{{ item.image.alt }}">
+									<img loading="lazy" class="mx-auto" src="{{ item.image | image_url: width: 300 }}" alt="{{ item.image.alt }}">
 									<h3>{{ item.title }}</h3>
 									<p>{{ item.original_price | money }}</p>									
 								</a>
@@ -97,14 +97,14 @@ class="z-50 fixed inset-0 overflow-hidden" aria-labelledby="slide-over-title" ro
 										+
 									</button>
 								</div>
-								<button @click="Elizabeth.updateQuantity({{ forloop.index}}, 0)" title="Remove {{ item.product.title }}" type="button" class="absolute top-4 right-14">{% render 'icon-close' %}</button>								
+								<button @click="Elizabeth.updateQuantity({{ forloop.index }}, 0)" title="Remove {{ item.product.title }}" type="button" class="absolute top-4 right-14">{% render 'icon-close' %}</button>								
 							</div>
 							{% unless forloop.last %}
 								<hr class="my-3">
 							{% endunless %}
 						{% endfor %}
 
-						{% if cart.item_count < 1   %}
+						{% if cart.item_count < 1 %}
 						<div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
 							<p class="font-bold">The cart is empty!</p>
 							<p  x-on:click="$dispatch('toggle-cart')" class="text-sm cursor-pointer">Continue Shopping </p>

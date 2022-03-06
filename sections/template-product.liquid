@@ -71,7 +71,7 @@
                 }
         }"
          class="product--information sticky top-5 p-2">
-            {% form 'product', product, id: 'product-form', novalidate: 'novalidate', x-ref:'product_forms' %}
+            {% form 'product', product, id: 'product-form', novalidate: 'novalidate', x-ref: 'product_forms' %}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" x-ref="variant_id">
                 {% for block in section.blocks %}
                     {% case block.type %}
@@ -84,7 +84,7 @@
                                 <h1 class="text-3xl text-gray-900">{{ product.title }}</h1>
                             </div>
                         {% when 'price' %}
-                            <div class="my-3" id="price-{{section.id}}">
+                            <div class="my-3" id="price-{{ section.id }}">
                                 {% assign product_price = product.selected_or_first_available_variant %}
                                 <span class="text-base text-gray-500 line-through">{{ product_price.compare_at_price | money }}</span>
                                 <span class="text-base text-gray-500">{{ product_price.price | money }}</span>
@@ -101,7 +101,7 @@
                                             <div class="my-2">
                                                 <select class="w-full border py-1 px-3" id="option-{{ section.id }}-{{ forloop.index }}" name="options[{{ option.name | escape }}]">
                                                     {% for value in option.values %}
-                                                        <option value="{{ value | escape }}" {% if option.selected_value==value %} selected="selected" {% endif %}>
+                                                        <option value = "{{ value | escape }}" {% if option.selected_value==value %} selected="selected" {% endif %}>
                                                             {{ value }}
                                                         </option>
                                                     {% endfor %}
