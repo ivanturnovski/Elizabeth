@@ -17,7 +17,7 @@
                     {% for block in section.blocks %}
                         {% assign item = block.settings.carousel_image %}
                         <div class="carousel-cell w-3/5 px-2">
-                            {{ item | image_url: width: 1200 | image_tag: widths: '300, 400, 480, 600, 800', class: 'carousel-cell-image' }}
+                            {{ item | image_url: width: 1000 | image_tag: sizes: '40vw', preload: true }}
                         </div>
                     {% endfor %}
                 </div>
