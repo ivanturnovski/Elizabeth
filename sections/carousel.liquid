@@ -17,7 +17,7 @@
                     {% for block in section.blocks %}
                         {% assign item = block.settings.carousel_image %}
                         <div class="carousel-cell w-3/5 px-2">
-                            {{ item | image_url: width: 1000 | image_tag: sizes: '40vw', preload: true }}
+                            {{ item | image_url: width: 1000 | image_tag: sizes: '40vw' }}
                         </div>
                     {% endfor %}
                 </div>
@@ -28,10 +28,58 @@
 </div>
 
 <style>
+    .flickity-viewport {
+        height: 500px !important;
+    }
 
+    .carousel {
+        height: 500px;
+    }
 
+    @media (max-width: 500px) {
+        .flickity-viewport {
+            height: 400px !important;
+        }
 
+        .carousel {
+            height: 400px;
+        }
+    }
+
+    .carousel-cell {
+        height: 100%;
+    }
 </style>
+<script>
+    function carousel() {
+	return {
+		active: 0,
+		init() {
+			var flkty = new Flickity(this.$refs.carousel, {
+				autoPlay: 2500,
+				wrapAround: true,
+			});
+			flkty.on('change', (i) => (this.active = i));
+		},
+	};
+}
+
+function carouselFilter() {
+	return {
+		active: 0,
+		changeActive(i) {
+			this.active = i;
+
+			this.$nextTick(() => {
+				let flkty = Flickity.data(this.$el.querySelectorAll('.carousel')[i]);
+				flkty.resize();
+
+				console.log(flkty);
+			});
+		},
+	};
+}
+</script>
 {% schema %}
 
 {
