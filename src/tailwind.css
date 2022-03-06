@@ -5,3 +5,9 @@
 .flickity-viewport {
 	height: 500px !important;
 }
+
+@media (max-width: 500px) {
+	.flickity-viewport {
+		height: 400px !important;
+	}
+}

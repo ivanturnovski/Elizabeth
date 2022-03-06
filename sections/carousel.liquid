@@ -9,15 +9,15 @@
                 <div class="col-start-1 row-start-1 relative z-20 flex items-center justify-center pointer-events-none">
                     {% for block in section.blocks %}
 					{% assign item_title = block.settings.title %}					
-						 <h1 class="absolute text-5xl uppercase font-black tracking-widest" x-show="active == {{ forloop.index0 }}" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:enter-start="opacity-0 transform translate-y-12" x-transition:enter="transition ease-out duration-300" x-transition:leave-end="opacity-0 transform -translate-y-12" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave="transition ease-out duration-300">{{ item_title }}</h1>
+						 <h1 class="absolute text-5xl uppercase font-black md:text-white text-black  tracking-widest" x-show="active == {{ forloop.index0 }}" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:enter-start="opacity-0 transform translate-y-12" x-transition:enter="transition ease-out duration-300" x-transition:leave-end="opacity-0 transform -translate-y-12" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave="transition ease-out duration-300">{{ item_title }}</h1>
 					
                     {% endfor %}
                 </div>
                 <div class="carousel col-start-1 row-start-1" x-ref="carousel">
                     {% for block in section.blocks %}
                         {% assign item = block.settings.carousel_image %}
-                        <div class="w-3/5 px-2">
-                            {{ item | image_url: width: 1200 | image_tag: widths: '200, 300, 800' }}
+                        <div class="carousel-cell w-3/5 px-2">
+                            {{ item | image_url: width: 1200 | image_tag: widths: '480, 800', class: 'carousel-cell-image' }}
                         </div>
                     {% endfor %}
                 </div>
@@ -26,6 +26,12 @@
         </div>
     </div>
 </div>
+
+<style>
+
+
+
+</style>
 {% schema %}
 
 {
