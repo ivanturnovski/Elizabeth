@@ -3,24 +3,24 @@
 	{% for item in cart.items %}
 		<div class="cart-drawer-product p-4 relative">
 			<a class="block" href="{{ item.url }}">
-				<img loading="lazy" class="mx-auto" src="{{ item.image | image_url: width: 300 }}" alt="{{ item.image.alt }}" width="200" height="200">
+				<img loading="lazy" class="mx-auto" src="{{ item.image | image_url: width: 300 }}" alt="{{ item.image.alt }}" width="300" height="200">
 				<h3>{{ item.title }}</h3>
 				<p>{{ item.original_price | money }}</p>									
 			</a>
 			<div class="cart-drawer-buttons" x-data="{ qty: {{ item.quantity }} }" >
 				<button 
-				@click.debounce="Elizabeth.updateQuantity({{ forloop.index }}, qty=qty-1)"
+				@click.debounce="loading = true; Elizabeth.updateQuantity({{ forloop.index }}, qty=qty-1)"
 				type="button" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
 					-
 				</button>
 				<input class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow w-12 text-center" type="text" name="quantity" value="{{ item.quantity }}">
 				<button 
-				@click.debounce="Elizabeth.updateQuantity({{ forloop.index }}, qty=qty+1)"
+				@click.debounce="loading = true; Elizabeth.updateQuantity({{ forloop.index }}, qty=qty+1)"
 				type="button" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
 					+
 				</button>
 			</div>
-			<button @click="Elizabeth.updateQuantity({{ forloop.index }}, 0)" title="Remove {{ item.product.title }}" type="button" class="absolute top-4 right-14">{% render 'icon-close' %}</button>								
+			<button @click="loading = true; Elizabeth.updateQuantity({{ forloop.index }}, 0)" title="Remove {{ item.product.title }}" type="button" class="absolute top-4 right-14">{% render 'icon-close' %}</button>								
 		</div>
 		{% unless forloop.last %}
 			<hr class="my-3">
@@ -33,6 +33,9 @@
 		<p  x-on:click="$dispatch('toggle-cart')" class="text-sm cursor-pointer">Continue Shopping </p>
 	  </div>
 	{% endif %}
+	<div class="loader absolute grid place-content-center inset-0 bg-black/20 z-10" x-show="loading">
+		<div style="border-top-color:transparent" class="w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
+	</div>
 	<div class="cart-drawer-footer mt-auto">
 		<div class="cart-drawer-totals">
 			<p class="hover:bg-gray-100 text-gray-800 font-semibold m-3">Discount: {{ cart.total_discount | money }}</p>
