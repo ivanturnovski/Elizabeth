@@ -1,43 +1,42 @@
 <div class="px-4 py-8">
     {% paginate collection.products by section.settings.products_per_page %}
         <h1 class="text-3xl text-center">{{ collection.title }}</h1>
-        <div class="collection-sort">
-            <select id="sort-by">
-                {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
-              
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+        <div class="collection-sort max-w-6xl mx-auto" 
+        x-data="{
+          loading: false,
+          sort: '{{ sort_by }}',
+          sortCollection(){
+            this.loading = true;
+            fetch('/collections/{{ collection.handle }}?sort_by=' + this.sort)
+            .then(response => response.text())
+            .then(data => {
+
+              let html_div = document.createElement('div');
+              html_div.innerHTML = data;
+              let html_dom = html_div.querySelector('#productGrid').innerHTML;
+
+              document.querySelector('#productGrid').innerHTML = html_dom;
+              console.log('data', html_dom);
+            })
+            .catch(error => console.error('Error:', error))
+            .finally(()=> this.loading = false);
+          }
+        }">
+            <select id="sort-by" x-model="sort" @change="sortCollection()" class="border border-1 p-1">             
                 {% for option in collection.sort_options %}
                   <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>
                     {{ option.name }}
                   </option>
                 {% endfor %}
               </select>
-              <script>
-                Shopify.queryParams = {};
-              
-                // Preserve existing query parameters
-                if (location.search.length) {
-                  var params = location.search.substr(1).split('&');
-              
-                  for (var i = 0; i < params.length; i++) {
-                    var keyValue = params[i].split('=');
-              
-                    if (keyValue.length) {
-                      Shopify.queryParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
-                    }
-                  }
-                }
-              
-                // Update sort_by query parameter on select change
-                document.querySelector('#sort-by').addEventListener('change', function(e) {
-                  var value = e.target.value;
-              
-                  Shopify.queryParams.sort_by = value;
-                  location.search = new URLSearchParams(Shopify.queryParams).toString();
-                });
-              </script>
+              <div class="loader absolute grid place-content-center inset-0 bg-black/20 z-10" x-show="loading">
+                <div class="w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin" style="border-top-color:transparent"></div>
+              </div>
         </div>
+
         <div class="max-w-6xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {% for product in collection.products %}
                     {% render 'product-card', product: product %}
                 {% endfor %}
