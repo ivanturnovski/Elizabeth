@@ -28,19 +28,24 @@
 	{% endfor %}
 
 	{% if cart.item_count < 1 %}
-	<div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
-		<p class="font-bold">The cart is empty!</p>
-		<p  x-on:click="$dispatch('toggle-cart')" class="text-sm cursor-pointer">Continue Shopping </p>
-	  </div>
-	{% endif %}
-	<div class="loader absolute grid place-content-center inset-0 bg-black/20 z-10" x-show="loading">
-		<div style="border-top-color:transparent" class="w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin"></div>
-	</div>
-	<div class="cart-drawer-footer mt-auto">
-		<div class="cart-drawer-totals">
-			<p class="hover:bg-gray-100 text-gray-800 font-semibold m-3">Discount: {{ cart.total_discount | money }}</p>
-			<p class="hover:bg-gray-100 text-gray-800 font-semibold m-3">Total Price: {{ cart.total_price | money }}</p>
+		<div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+			<p class="font-bold">The cart is empty!</p>
+			<p class="text-sm cursor-pointer" x-on:click="$dispatch('toggle-cart')">Continue Shopping
+			</p>
 		</div>
-		<button type="submit" name="checkout" class="bg-gray-900 text-white hover:bg-gray-700 p-2 block w-full">Checkout</button>
-	</div>						
+	{% else %}
+		<div class="loader absolute grid place-content-center inset-0 bg-black/20 z-10" x-show="loading">
+			<div class="w-16 h-16 border-4 border-blue-400 border-dashed rounded-full animate-spin" style="border-top-color:transparent"></div>
+		</div>
+	
+		<div class="cart-drawer-footer mt-auto">
+			<div class="cart-drawer-totals">
+				<p class="hover:bg-gray-100 text-gray-800 font-semibold m-3">Discount:
+					{{ cart.total_discount | money }}</p>
+				<p class="hover:bg-gray-100 text-gray-800 font-semibold m-3">Total Price:
+					{{ cart.total_price | money }}</p>
+			</div>
+			<button class="bg-gray-900 text-white hover:bg-gray-700 p-2 block w-full" name="checkout" type="submit">Checkout</button>
+		</div>
+	{% endif %}		
 </form>

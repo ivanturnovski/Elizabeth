@@ -70,6 +70,7 @@
                   });
                 }
         }"
+        @quantity-changed.window = "qty = $event.detail.quantity"
          class="product--information sticky top-5 p-2">
             {% form 'product', product, id: 'product-form', novalidate: 'novalidate', x-ref: 'product_forms' %}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" x-ref="variant_id">
@@ -115,11 +116,34 @@
                                 {% endunless %}
                             </div>
                         {% when 'quantity'%}
-                            <div class="my-3">
+                            <div class="my-3"
+                            x-data="
+                            {
+                                qty: 1,
+                                minus(value) {
+                                    this.qty = parseInt(this.qty);
+                                    (this.qty == 1) ? this.qty = 1 : this.qty -= value;
+                                },
+                                plus(value) {
+                                    this.qty = parseInt(this.qty);
+                                    this.qty += value;
+                                }
+
+                            }"
+                            x-init="$watch('qty', value=> $dispatch('quantity-changed', { quantity: value }))"
+                            >
                                 <label for="quantity-{{ section.id }}">Quantity</label>
-                                <div class="my-2">
-                                    <input class="w-full border px-3 py-2" id="quantity-{{ section.id }}" min="1" name="quantity" type="number" value="1">
-                                </div>
+                                <button 
+                                    x-on:click="minus(1)"									
+									type="button" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+										-
+									</button>                                
+                                    <input x-model="qty" class="appearance-none w-16 text-center border px-3 py-2" id="quantity-{{ section.id }}" min="1" name="quantity" type="number" value="1">                               
+                                <button 
+                                x-on:click="plus(1)"									
+									type="button" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+										+
+									</button>
                             </div>
                         {% when 'description' %}
                             <div class="my-3">
