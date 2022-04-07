@@ -1,11 +1,12 @@
 <div class="px-4 py-8">
     {% paginate collection.products by section.settings.products_per_page %}
         <h1 class="text-3xl text-center">{{ collection.title }}</h1>
+        
         {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 
         <div class="max-w-6xl mx-auto">
           <div class="flex">
-            <div class="w-3/12">
+            <div class="w-3/12 mr-4">
               {% render 'filters' %}
             </div>
   
@@ -23,6 +24,11 @@
     {% endpaginate %}
 </div>
 
+<style>
+  .filter-form .filter-group[open] svg {
+	transform: rotate(-90deg)!important;
+}
+</style>
 {% schema %}
 
 {
