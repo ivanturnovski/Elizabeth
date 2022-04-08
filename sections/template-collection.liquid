@@ -4,14 +4,14 @@
         
         {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
 
-        <div class="max-w-6xl mx-auto">
+        <div id="productGrid" class="max-w-6xl mx-auto">
           <div class="flex">
-            <div class="w-3/12 mr-4">
+            <div class="w-3/12 mr-8">
               {% render 'filters' %}
             </div>
   
             <div class="w-9/12">
-              <div id="productGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div  class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {% for product in collection.products %}
                     {% render 'product-card', product: product %}
                 {% endfor %}
