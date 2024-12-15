@@ -1,0 +1,4 @@
+[environments.dev]
+store = "ivanturnovski"
+path = "."
+theme-editor-sync = true
